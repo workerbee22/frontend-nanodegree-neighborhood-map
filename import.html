@@ -1,0 +1,30 @@
+<!-- Import Page -->
+<!-- Parses local CSV file and loads into Firestore the ARCBS locations -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ARCBS Location Importer</title>
+</head>
+<body>
+    <div id="header">
+      <h1>Australian RedCross Blood Service</h1>
+      <h3>Location Importer</h3>
+    </div>
+    <div id="content">
+      <p>Imports a ARCBS standard location spreadsheet (saved in CSV format)to Firestore for use by the Location Buddy webpage.</p>
+      <!-- Local file picker button for CSV file -->
+      <input name="myFile" type="file" accept=".csv" id="fileButton">
+      <p id="result"></p>
+    </div>
+    <!-- Load google maps api for geocoding the locations but no callback becuase not initialising a map -->
+    <script src="https://maps.googleapis.com/maps/api/js?&key=AIzaSyBmIHgGgte-OAjIEw4zjeYDWiz3nTFruuQ&v=3" async defer></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- PapaParse via CDN for processing the CSV file -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.3.6/papaparse.min.js"></script>
+    <!-- Firebase and Cloud Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase-firestore.js"></script>
+    <script src="js/importScript.js"></script>
+</body>
+</html>

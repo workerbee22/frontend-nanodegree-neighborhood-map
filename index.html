@@ -1,0 +1,53 @@
+<!-- Location Buddy Page -->
+<!-- Shows ARCBS locations of various types and hospitals -->
+<!-- This is a viewer app only. Data stored prepared, imported and parsed prior. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>ARCBS Location Buddy</title>
+    <style>
+      /*Always set the map height explicitly to define the size of the div element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        font-family: Arial, sans-serif;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    var map;
+    // Constructor creates a new map instance with only center and zoom needed
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 5
+      });
+      // Static marker code
+      var melbourne = {lat: -37.813628, lng: 144.963058};
+      var marker = new google.maps.Marker({
+        position: melbourne,
+        map: map,
+        animation: google.maps.Animation.BOUNCE,
+        title: 'This is MELBOURNE'
+      });
+    }
+  </script>
+  <!-- Google Maps JavaScript API -->
+  <script src="https://maps.googleapis.com/maps/api/js?&libraries=places&key=AIzaSyBmIHgGgte-OAjIEw4zjeYDWiz3nTFruuQ&v=3&callback=initMap" async defer></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <!-- Firebase and Cloud Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase-firestore.js"></script>
+  <script src="js/script.js"></script>
+    
+</body>
+</html>
