@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!-- CSS for the app -->
+<html>
+  <head>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <!-- View for the Neighbourhood Map app -->
+    <div class="container">
+      <div class="options-box">
+        <h1>Neighbourhood Map</h1>
+        <h2>Washington D.C.</h2>
+        <div>
+          <input id="show-listings" type="button" value="Show Listings">
+          <input id="hide-listings" type="button" value="Hide Listings">
+        </div>
+        <hr>
+        <div class="searchbox">
+          <span class="text">Search</span>
+          <input id="places-search" type="text" onkeyup="viewModel.searchBar()" placeholder="Search for places">
+          <input id="go-places" type="button" value="Go">
+          <ul id="myUL">
+          </ul>
+        </div>
+      </div>
+      <div id="map"></div>
+    </div>
+
+    <!-- jQuery first so can use document ready in script.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- Knockout via a CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+    <!-- Javascript external file AFTER the map div, but BEFORE Google Maps and libraries in body at bottom -->
+    <script src="js/mapStyles2.js"></script>
+    <script src="js/script2.js"></script>
+    <!-- Google Maps API key NEW one. Removed async defer -->
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyBLURqHPD-BQAbH2sTtAZTLesMwHQpiOMs&v=3&callback=initMap">
+    </script>
+    
+  </body>
+</html>

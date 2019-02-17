@@ -36,6 +36,7 @@ var viewModel = {
     $(document).ready(function() {
       console.log( "DOM ready." );
       viewModel.getLocations();
+      viewModel.searchBar();
     });
   },
   
@@ -49,10 +50,12 @@ var viewModel = {
   searchBar: function () {
     // Declare variables
     var input, filter, ul, li, a, i;
+    
     input = document.getElementById('myInput');
     filter = input.value.toUpperCase();
     ul = document.getElementById("myUL");
     li = ul.getElementsByTagName('li');
+    
     // Loop through all locations in list hiding those that don't match the search query in list and on map
     for (i = 0; i < li.length; i++) {
       a = li[i].getElementsByTagName("a")[0];
@@ -66,26 +69,32 @@ var viewModel = {
     
   // get location data from Firestore and set custom map markers
   getLocations: function() {
+    
+    var largeInfowindow = new google.maps.InfoWindow();
+    var infowindow = new google.maps.InfoWindow();
+    
     // Initialise Firestore to read all locations data
     firebase.initializeApp({
       apiKey: 'AIzaSyAwlziqCGRjcSkaDeKOt2en48QneMJLPgQ',
       projectId: 'productx-arcbslocbuddy'
     });
+    
     // initialize Cloud Firestore through Firebase
     var db = firebase.firestore();
+    var iconImage;
     console.log('Querying Firestore');
     db.collection("rcbsLocations")
       .get()
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-          var iconImage;
+          
           console.log(doc.id, " has this data ", doc.data());
           // Categorise the location by its meta data properties and set iconImage for this category
           if (doc.data().category === "rcbs" && doc.data().type[0] === "donor") {iconImage = imageCustomDotLtGreen;}
-          if (doc.data().category === "rcbs" && doc.data().type[0] === "processing") {iconImage = imageCustomDotRCBSRed;}
-          if (doc.data().category === "rcbs" && doc.data().type[0] === "contact") {iconImage = imageCustomPinSpotlight;}
-          if (doc.data().category === "hospital" && doc.data().type[0] === "nicu") {iconImage = imageCustomHospital;}
-          if (doc.data().category === "hospital" && doc.data().type[0] === "scn") {iconImage = imageCustomHospitalLite;}
+          // if (doc.data().category === "rcbs" && doc.data().type[0] === "processing") {iconImage = imageCustomDotRCBSRed;}
+          // if (doc.data().category === "rcbs" && doc.data().type[0] === "contact") {iconImage = imageCustomPinSpotlight;}
+          // if (doc.data().category === "hospital" && doc.data().type[0] === "nicu") {iconImage = imageCustomHospital;}
+          // if (doc.data().category === "hospital" && doc.data().type[0] === "scn") {iconImage = imageCustomHospitalLite;}
           // Load initialLocations array
           
           // Put a marker for this location on the map
@@ -95,9 +104,22 @@ var viewModel = {
             title: doc.data().name,
             icon: iconImage
           });
+          
+          // Add an info window for the marker
+          var infowindow = new google.maps.InfoWindow({
+            content: '<h3>' + doc.data().name + '</h3>' +
+            '<p>' + doc.data().formattedAddr + '</p>'
+          });
+          
+          // Add a click listener for clicking on the marker to show the info window
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+          
           // Add this location to the List
           // Create the html and append to the unordered list <li><a href="#">Adele</a></li>
           $("#myUL").append('<li><a href="#">' + doc.data().name + '</a></li>');
+          
         });
       })
       .catch(function(error) {

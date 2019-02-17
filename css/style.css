@@ -1,5 +1,7 @@
-/* Optional: Makes the sample page fill the window. */
-html, body {
+/* Styles for the app */
+
+html,
+body {
   font-family: Arial, sans-serif;
   height: 100%;
   margin: 0;
@@ -9,8 +11,52 @@ html, body {
 .container {
   height: 100%;
   position: relative;
-  padding: 0;
 }
+
+input {
+  font-size: 12px;
+}
+
+h1 {
+  color: #525454;
+  font-size: 22px;
+  margin: 0 0 10px 0;
+  text-align: left;
+}
+
+h2 {
+  color: blue;
+  font-size: 18px;
+  margin: 0 0 10px 0;
+  text-align: left;
+}
+
+h3 {
+  font-size: 16px; /* Increase font-size */
+  padding: 12px 20px 12px 20px; /* Add some padding */
+  margin-bottom: 12px; /* Add some space below the input */
+}
+
+#hide-listings,
+#show-listings {
+  width: 48%;
+}
+
+hr {
+  background: #D0D7D9;
+  height: 1px;
+  margin: 20px 0 20px 0;
+  border: none;
+}
+
+#map {
+  bottom:0px;
+  height: 100%;
+  left: 362px;
+  position: absolute;
+  right: 0px;
+}
+
 .options-box {
   background: #fff;
   border: 1px solid #999;
@@ -19,15 +65,38 @@ html, body {
   line-height: 35px;
   padding: 10px 10px 30px 10px;
   text-align: left;
-  width: 30%;
+  width: 340px;
 }
-#map {
-  bottom:0px;
-  height: 100%;
-  left: 30%;
-  position: absolute;
-  right: 0px;
+
+#pano {
+  width: 200px;
+  height: 200px;
 }
+
+#places-search,
+#search-within-time-text {
+  width: 84%;
+}
+
+.text {
+  font-size: 12px;
+}
+
+/* Dont need for this project */
+/* #toggle-drawing {
+  width: 27%;
+  position: relative;
+  margin-left: 10px;
+} */
+
+#zoom-to-area-text {
+  width: 70%;
+}
+
+#zoom-to-area {
+  width: 24%;
+}
+
 #myInput {
   background-image: url('searchIcon.svg'); /* Add a search icon to input */
   background-position: 10px 12px; /* Position the search icon */
@@ -52,17 +121,11 @@ html, body {
   background-color: #f6f6f6; /* Grey background color */
   padding: 12px; /* Add some padding */
   text-decoration: none; /* Remove default text underline */
-  font-size: 16px; /* Increase the font-size */
+  font-size: 12px; /* Increase the font-size */
   color: black; /* Add a black text color */
   display: block; /* Make it into a block element to fill the whole list */
 }
 
 #myUL li a:hover:not(.header) {
   background-color: #eee; /* Add a hover effect to all links, except for headers */
-}
-
-h3 {
-  font-size: 16px; /* Increase font-size */
-  padding: 12px 20px 12px 20px; /* Add some padding */
-  margin-bottom: 12px; /* Add some space below the input */
 }
