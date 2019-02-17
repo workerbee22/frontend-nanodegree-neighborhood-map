@@ -5,7 +5,6 @@ var map;
 
 // Create a new blank array for all the listing markers.
 var markers = [];
-var z = 0;
 
 // Create placemarkers array to use in multiple functions to have control
 // over the number of places that show.
