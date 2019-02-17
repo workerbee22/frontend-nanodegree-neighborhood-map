@@ -5,13 +5,20 @@ var map;
 
 // Create a new blank array for all the listing markers.
 var markers = [];
-
-// This global polygon variable is to ensure only ONE polygon is rendered.
-// var polygon = null;
+var z = 0;
 
 // Create placemarkers array to use in multiple functions to have control
 // over the number of places that show.
 var placeMarkers = [];
+
+// Washington DC momumnents
+var locations = [
+  {title: 'Lincoln Memorial', location: {lat: 38.8893, lng: -77.0502}, id: 0},
+  {title: 'Washington Monument', location: {lat: 38.9072, lng: -77.0369}, id: 1},
+  {title: 'The White House', location: {lat: 38.8977, lng: -77.0365}, id: 2},
+  {title: 'Thomas Jefferson Memorial', location: {lat: 38.8814, lng: -77.0365}, id: 3},
+  {title: 'Smithsonian National Museum of Natural History', location: {lat: 38.8913, lng: -77.0261}, id: 4}
+];
 
 // Google map styling
 function initMap() {
@@ -24,16 +31,20 @@ function initMap() {
     mapTypeControl: false
   });
 
-  // Washington DC momumnents
-  var locations = [
-    {title: 'Lincoln Memorial', location: {lat: 38.8893, lng: -77.0502}},
-    {title: 'Washington Monument', location: {lat: 38.9072, lng: -77.0369}},
-    {title: 'The White House', location: {lat: 38.8977, lng: -77.0365}},
-    {title: 'Thomas Jefferson Memorial', location: {lat: 38.8814, lng: -77.0365}},
-    {title: 'Smithsonian National Museum of Natural History', location: {lat: 38.8913, lng: -77.0261}}
-  ];
-
   var largeInfowindow = new google.maps.InfoWindow();
+
+  // We add a DOM event here to show info window if list item clicked
+  var ul, li, a;
+  ul = document.getElementById("myUL");
+  li = ul.getElementsByTagName('li');
+  // Loop through all locations array, hiding those that don't match the search query in list and on map
+  // remove locations.length ... replace with 5 for now
+  for (i = 0; i < li.length; i++) {
+    google.maps.event.addDomListener(li[i], 'click', function() {
+      //window.alert('Item was clicked!');
+      //************ largeInfowindow.open(map, markers[i]);
+    });
+  }
 
   // Style the markers a bit. This will be our listing marker icon.
   var defaultIcon = makeMarkerIcon('0091ff');
@@ -42,6 +53,7 @@ function initMap() {
   // mouses over the marker.
   var highlightedIcon = makeMarkerIcon('FFFF24');
 
+  // Markers
   // The following group uses the location array to create an array of markers on initialize.
   for (var i = 0; i < locations.length; i++) {
     // Get the position from the location array.
@@ -52,7 +64,7 @@ function initMap() {
       position: position,
       title: title,
       animation: google.maps.Animation.DROP,
-      icon: defaultIcon,
+      // icon: defaultIcon,
       id: i
     });
     
@@ -71,15 +83,17 @@ function initMap() {
       this.setIcon(defaultIcon);
     });
     
+    // Disable this - construct list using Knockout
     // For each location array object, create the html and append to the unordered list as a list item <li><a href="#">timeAutocomplete</a></li>
-    $("#myUL").append('<li><a href="#">' + locations[i].title + '</a></li>');
+    // $("#myUL").append('<li><a href="#">' + locations[i].title + '</a></li>');
 
   }
 
-  document.getElementById('show-listings').addEventListener('click', showListings);
-  document.getElementById('hide-listings').addEventListener('click', function() {
-    hideMarkers(markers);
-  });
+  showListings();
+  // document.getElementById('show-listings').addEventListener('click', showListings);
+  // document.getElementById('hide-listings').addEventListener('click', function() {
+  //   hideMarkers(markers);
+  // });
 }
   
 // This function populates the infowindow when the marker is clicked. We'll only allow
@@ -160,43 +174,8 @@ function makeMarkerIcon(markerColor) {
   return markerImage;
 } // markerIcon END
 
-// This function creates markers for each place found in either places search.
-function createMarkersForPlaces(places) {
-  var bounds = new google.maps.LatLngBounds();
-  for (var i = 0; i < places.length; i++) {
-    var place = places[i];
-    var icon = {
-      url: place.icon,
-      size: new google.maps.Size(35, 35),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(15, 34),
-      scaledSize: new google.maps.Size(25, 25)
-    };
-    // Create a marker for each place.
-    var marker = new google.maps.Marker({
-      map: map,
-      icon: icon,
-      title: place.name,
-      position: place.geometry.location,
-      id: place.id
-    });
-    // If a marker is clicked, do a place details search on it in the next function.
-    marker.addListener('click', function() {
-    getPlacesDetails(this, place);
-    });
-    placeMarkers.push(marker);
-    if (place.geometry.viewport) {
-      // Only geocodes have viewport.
-      bounds.union(place.geometry.viewport);
-    } else {
-      bounds.extend(place.geometry.location);
-    }
-  }
-  map.fitBounds(bounds);
-} // createMarkersforPlaces END
+var viewModel2 = {
 
-var viewModel = {
-  
   // initialise the document, initialise the map and get location data for markers
   init: function() {
     $(document).ready(function() {
@@ -204,30 +183,81 @@ var viewModel = {
       viewModel.searchBar();
     });
   },
-  
+
   // Search Bar - create the filter bar and initial list
   searchBar: function () {
     // Declare variables
     var input, filter, ul, li, a, i;
-    
+
     input = document.getElementById('places-search');
     filter = input.value.toUpperCase();
     ul = document.getElementById("myUL");
     li = ul.getElementsByTagName('li');
-    
+
     // Loop through all locations array, hiding those that don't match the search query in list and on map
     // remove locations.length ... replace with 5 for now
-    for (i = 0; i < 5; i++) {
-      a = li[i].getElementsByTagName("a")[0];
-      if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+    for (i = 0; i < li.length; i++) {
+      // a = li[i].getElementsByTagName("a")[0];
+      if (li[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
         li[i].style.display = "";
+        // Show map marker
+        markers[i].setMap(map);
       } else {
         li[i].style.display = "none";
+        // Hide map marker
+        markers[i].setMap(null);
       }
     }
   }
-  
+
 };
 
 //Main app call
-viewModel.init();
+//viewModel.init();
+
+// Location object
+var Location = function(data) {
+  // Data created for name from locations array and the title property
+  this.name = ko.observable(data.title);
+  this.id = ko.observable(data.id);
+};
+
+// ViewModel - because it has logic to increase the click count when image clicked
+var viewModel = function () {
+  // for use with the SELF trick below in incrementCounter
+  var self = this;
+  
+  // catList ko observable array created, then populated with new Location objects from locations array
+  this.locationList = ko.observableArray([]);
+  // Using forEach for the locations array. Note: The forEach() method executes a provided function once for each array element.
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+  // Each location object data in locations array, passed to locationitem on the anonymous function
+  // that anonymous function then pushes a new location object to the locationList ko observable array
+  locations.forEach(function (locationItem) {
+    self.locationList.push(new Location(locationItem));
+  });
+  console.dir(this.locationList);
+  
+  // currentLocation set to a Location object. Use just the first location Object in the locations array
+  this.currentLocation = ko.observable(new Location(locations[0]));
+  
+  // this.incrementCounter = function () {
+  //   // becuase a ko observable, need to get its value differently by calling it as a function ie. this.clickCount()
+  //   // and set its value by passing in the new value ie. this.clickCount( ... )
+  //   // SELF trick to keep outter function THIS
+  //   self.currentCat().clickCount(self.currentCat().clickCount() + 1);
+  // };
+  
+  this.setCurrentLocation = function (loc) {
+    console.log('***click');
+    console.log(loc);
+    // change currentLocation which holds just 1 location object location that was clicked.
+    self.currentLocation(loc);
+    // Open infowindow of corresponding marker
+    //initMap.largeInfowindow.open(map, markers.loc.id);
+    
+  };
+  
+};
+
+ko.applyBindings(new viewModel());
