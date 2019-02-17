@@ -1,4 +1,4 @@
-/// Main js code
+/// Main js code file
 
 // Google map object
 var map;
@@ -90,15 +90,10 @@ function initMap() {
   }
 
   showListings();
-  // document.getElementById('show-listings').addEventListener('click', showListings);
-  // document.getElementById('hide-listings').addEventListener('click', function() {
-  //   hideMarkers(markers);
-  // });
+  
 }
   
-// This function populates the infowindow when the marker is clicked. We'll only allow
-// one infowindow which will open at the marker that is clicked, and populate based
-// on that markers position.
+// This function populates the infowindow when the marker is clicked
 function populateInfoWindow(marker, infowindow) {
   // Check to make sure the infowindow is not already opened on this marker.
   if (infowindow.marker != marker) {
@@ -153,13 +148,6 @@ function showListings() {
   map.fitBounds(bounds);
 } // showListings END
 
-// This function will loop through the listings and hide them all.
-function hideMarkers(markers) {
-  for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(null);
-  }
-} // hideMarkers END
-
 // This function takes in a COLOR, and then creates a new marker
 // icon of that color. The icon will be 21 px wide by 34 high, have an origin
 // of 0, 0 and be anchored at 10, 34).
@@ -211,9 +199,6 @@ var viewModel2 = {
   }
 
 };
-
-//Main app call
-//viewModel.init();
 
 // Location object
 var Location = function(data) {
