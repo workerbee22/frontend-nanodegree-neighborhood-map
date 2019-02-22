@@ -13,13 +13,15 @@
         <h2>Washington D.C.</h2>
         <hr>
         <div class="searchbox">
-          <span class="text">Search</span>
           <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."> -->
-          <input class="search" id="places-search" type="text" onkeyup="searchBar()" placeholder="Search for places ...">
-          <!-- <input id="go-places" type="button" value="Go"> -->
-          <ul class = "list" id="myUL" data-bind="foreach: locationList">
+          <!-- <input class="search" id="places-search" type="text" onkeyup="searchBar()" placeholder="Search for places ..."> -->
+          <input class="search" id="places-search" type="text" data-bind="value: query, valueUpdate: 'keyup'" placeholder="Search for places ...">
+          <div data-bind="foreach:filteredPlaces">
+            <span data-bind="text:title"></span><br>
+          </div>
+          <!-- <ul class = "list" id="myUL" data-bind="foreach: locationList">
             <li data-bind="click: $root.setCurrentLocation, text: $data.name"></li>
-          </ul>
+          </ul> -->
         </div>
       </div>
       <div class = "map" id="map"></div>
