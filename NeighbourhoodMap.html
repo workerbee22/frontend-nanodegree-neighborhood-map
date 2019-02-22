@@ -13,15 +13,11 @@
         <h2>Washington D.C.</h2>
         <hr>
         <div class="searchbox">
-          <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."> -->
-          <!-- <input class="search" id="places-search" type="text" onkeyup="searchBar()" placeholder="Search for places ..."> -->
           <input class="search" id="places-search" type="text" data-bind="value: query, valueUpdate: 'keyup'" placeholder="Search for places ...">
           <div data-bind="foreach:filteredPlaces">
+            <!-- <span data-bind="text:title, click:placeClicked"></span><br> -->
             <span data-bind="text:title"></span><br>
           </div>
-          <!-- <ul class = "list" id="myUL" data-bind="foreach: locationList">
-            <li data-bind="click: $root.setCurrentLocation, text: $data.name"></li>
-          </ul> -->
         </div>
       </div>
       <div class = "map" id="map"></div>
@@ -34,7 +30,7 @@
     <!-- Javascript external file AFTER the map div, but BEFORE Google Maps and libraries in body at bottom -->
     <script src="js/mapStyles2.js"></script>
     <script src="js/script2.js"></script>
-    <!-- Google Maps API key NEW one. Removed async defer -->
+    <!-- Google Maps API key NEW one. Added back async as required by project and added onerror handler -->
     <script async src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyBLURqHPD-BQAbH2sTtAZTLesMwHQpiOMs&v=3&callback=initMap" onerror="mapsError()">
     </script>
     

@@ -89,19 +89,10 @@ function initMap() {
     marker.addListener('click', function() {
       populateInfoWindow(this, largeInfowindow);
     });
-    // Two event listeners - one for mouseover, one for mouseout,
-    // to change the colors back and forth.
-    marker.addListener('mouseover', function() {
-      this.setIcon(highlightedIcon);
-    });
     marker.addListener('mouseout', function() {
       this.setIcon(defaultIcon);
     });
     
-    // Disable this - construct list using Knockout
-    // For each location array object, create the html and append to the unordered list as a list item <li><a href="#">timeAutocomplete</a></li>
-    // $("#myUL").append('<li><a href="#">' + locations[i].title + '</a></li>');
-
   }
 
   showListings();
@@ -177,40 +168,6 @@ function makeMarkerIcon(markerColor) {
   return markerImage;
 } // markerIcon END
 
-// Location object
-// var Location = function(data) {
-//   // Data created for name from locations array and the title property
-//   this.name = ko.observable(data.title);
-//   this.id = ko.observable(data.id);
-// };
-
-// ViewModel - because it has logic to increase the click count when image clicked
-// var searchBar = function () {
-//
-//   // Declare variables
-//     var input, filter, ul, li, a, i;
-//
-//     input = document.getElementById('places-search');
-//     filter = input.value.toUpperCase();
-//     ul = document.getElementById("myUL");
-//     li = ul.getElementsByTagName('li');
-//
-//     // Loop through all locations array, hiding those that don't match the search query in list and on map
-//     // remove locations.length ... replace with 5 for now
-//     for (i = 0; i < li.length; i++) {
-//       // a = li[i].getElementsByTagName("a")[0];
-//       if (li[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-//         li[i].style.display = "";
-//         // Show map marker
-//         markers[i].setMap(map);
-//       } else {
-//         li[i].style.display = "none";
-//         // Hide map marker
-//         markers[i].setMap(null);
-//       }
-//     }
-// }
-
 var viewModel = function () {
   
   // for use with the SELF trick below in incrementCounter
@@ -232,6 +189,11 @@ var viewModel = function () {
         .filter(place => place.title().toLowerCase().indexOf(self.query().toLowerCase()) > -1);
     }
   });
+  
+  // self.placeClicked = function(data, event) {
+  //   // self.places.remove(place)
+  //   alert("Clicked something" + data);
+  // };
   
 };
 
