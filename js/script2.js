@@ -35,6 +35,7 @@ function initMap() {
   // We add a DOM event here to show info window if list item clicked
   var ul, li, a;
   ul = document.getElementById("myUL");
+  // console.log(ul);
   li = ul.getElementsByTagName('li');
   // Loop through all locations array, hiding those that don't match the search query in list and on map
   // remove locations.length ... replace with 5 for now
@@ -145,7 +146,7 @@ function showListings() {
     bounds.extend(markers[i].position);
   }
   map.fitBounds(bounds);
-} // showListings END
+}; // showListings END
 
 // This function takes in a COLOR, and then creates a new marker
 // icon of that color. The icon will be 21 px wide by 34 high, have an origin
@@ -161,19 +162,17 @@ function makeMarkerIcon(markerColor) {
   return markerImage;
 } // markerIcon END
 
-var viewModel2 = {
+// Location object
+var Location = function(data) {
+  // Data created for name from locations array and the title property
+  this.name = ko.observable(data.title);
+  this.id = ko.observable(data.id);
+};
 
-  // initialise the document, initialise the map and get location data for markers
-  init: function() {
-    $(document).ready(function() {
-      console.log( "Neighbourhood Map - Page DOM is ready." );
-      viewModel.searchBar();
-    });
-  },
-
-  // Search Bar - create the filter bar and initial list
-  searchBar: function () {
-    // Declare variables
+// ViewModel - because it has logic to increase the click count when image clicked
+var searchBar = function () {
+  
+  // Declare variables
     var input, filter, ul, li, a, i;
 
     input = document.getElementById('places-search');
@@ -195,19 +194,10 @@ var viewModel2 = {
         markers[i].setMap(null);
       }
     }
-  }
+}
 
-};
-
-// Location object
-var Location = function(data) {
-  // Data created for name from locations array and the title property
-  this.name = ko.observable(data.title);
-  this.id = ko.observable(data.id);
-};
-
-// ViewModel - because it has logic to increase the click count when image clicked
-var viewModel = function () {
+var stuff = function () {
+  
   // for use with the SELF trick below in incrementCounter
   var self = this;
   
@@ -220,7 +210,7 @@ var viewModel = function () {
   locations.forEach(function (locationItem) {
     self.locationList.push(new Location(locationItem));
   });
-  console.dir(this.locationList);
+  // console.dir(this.locationList);
   
   // currentLocation set to a Location object. Use just the first location Object in the locations array
   this.currentLocation = ko.observable(new Location(locations[0]));
@@ -233,8 +223,8 @@ var viewModel = function () {
   // };
   
   this.setCurrentLocation = function (loc) {
-    console.log('***click');
-    console.log(loc);
+    // console.log('***click');
+    // console.log(loc);
     // change currentLocation which holds just 1 location object location that was clicked.
     self.currentLocation(loc);
     // Open infowindow of corresponding marker
@@ -244,4 +234,4 @@ var viewModel = function () {
   
 };
 
-ko.applyBindings(new viewModel());
+ko.applyBindings(new stuff());

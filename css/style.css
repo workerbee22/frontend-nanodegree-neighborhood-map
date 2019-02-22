@@ -37,11 +37,6 @@ h3 {
   margin-bottom: 12px; /* Add some space below the input */
 }
 
-#hide-listings,
-#show-listings {
-  width: 48%;
-}
-
 hr {
   background: #D0D7D9;
   height: 1px;
@@ -49,7 +44,7 @@ hr {
   border: none;
 }
 
-#map {
+.map {
   bottom:0px;
   height: 100%;
   left: 362px;
@@ -68,13 +63,7 @@ hr {
   width: 340px;
 }
 
-#pano {
-  width: 200px;
-  height: 200px;
-}
-
-#places-search,
-#search-within-time-text {
+.search {
   width: 84%;
 }
 
@@ -89,26 +78,7 @@ hr {
   margin-left: 10px;
 } */
 
-#zoom-to-area-text {
-  width: 70%;
-}
-
-#zoom-to-area {
-  width: 24%;
-}
-
-#myInput {
-  background-image: url('searchIcon.svg'); /* Add a search icon to input */
-  background-position: 10px 12px; /* Position the search icon */
-  background-repeat: no-repeat; /* Do not repeat the icon image */
-  inline-size: 100%;
-  font-size: 16px; /* Increase font-size */
-  padding: 12px 20px 12px 40px; /* Add some padding */
-  border: 1px solid #ddd; /* Add a grey border */
-  margin-bottom: 12px; /* Add some space below the input */
-}
-
-#myUL {
+.myUL {
   /* Remove default list styling */
   list-style-type: none;
   padding: 0;
@@ -126,6 +96,6 @@ li {
   display: block; /* Make it into a block element to fill the whole list */
 }
 
-#myUL li a:hover:not(.header) {
+.list li a:hover:not(.header) {
   background-color: #eee; /* Add a hover effect to all links, except for headers */
 }

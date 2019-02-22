@@ -10,21 +10,18 @@
       <div class="options-box">
         <h1>Neighbourhood Map</h1>
         <h2>Washington D.C.</h2>
-        <!-- <div>
-          <input id="show-listings" type="button" value="Show Listings">
-          <input id="hide-listings" type="button" value="Hide Listings">
-        </div> -->
         <hr>
         <div class="searchbox">
           <span class="text">Search</span>
-          <input id="places-search" type="text" onkeyup="viewModel2.searchBar()" placeholder="Search for places">
+          <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."> -->
+          <input class="search" id="places-search" type="text" onkeyup="searchBar()" placeholder="Search for places ...">
           <!-- <input id="go-places" type="button" value="Go"> -->
-          <ul id="myUL" data-bind="foreach: locationList">
+          <ul class = "list" id="myUL" data-bind="foreach: locationList">
             <li data-bind="click: $root.setCurrentLocation, text: $data.name"></li>
           </ul>
         </div>
       </div>
-      <div id="map"></div>
+      <div class = "map" id="map"></div>
     </div>
 
     <!-- jQuery first so can use document ready in script.js -->
