@@ -2,6 +2,7 @@
 <!-- CSS for the app -->
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
@@ -32,7 +33,7 @@
     <script src="js/mapStyles2.js"></script>
     <script src="js/script2.js"></script>
     <!-- Google Maps API key NEW one. Removed async defer -->
-    <script src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyBLURqHPD-BQAbH2sTtAZTLesMwHQpiOMs&v=3&callback=initMap">
+    <script async src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyBLURqHPD-BQAbH2sTtAZTLesMwHQpiOMs&v=3&callback=initMap" onerror="mapsError()">
     </script>
     
   </body>

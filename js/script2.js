@@ -19,6 +19,12 @@ var locations = [
   {title: 'Smithsonian National Museum of Natural History', location: {lat: 38.8913, lng: -77.0261}, id: 4}
 ];
 
+function mapsErorr() {
+  // Handle a Google Map error
+  alert("Google Maps has failed to initialize. Is your internet connection working?");
+}
+
+
 // Google map styling
 function initMap() {
   // Constructor makes a new map - only center and zoom are required.
